@@ -6,7 +6,7 @@ export default function Topbar() {
       <div className="flex items-center gap-4">
         <span className="font-medium">Admin</span>
         <img
-          src="https://i.pravatar.cc/40"
+          src="https://res.cloudinary.com/dweiscfbg/image/upload/v1764007385/docters/laffshrr4mddj9q5de36.png"
           alt="profile"
           className="w-10 h-10 rounded-full"
         />
