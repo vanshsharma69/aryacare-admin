@@ -1,16 +1,68 @@
-# React + Vite
+# 🏥 AryaCare Admin Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive **Hospital Management Admin Panel** built using **React, Tailwind CSS, Node.js, Express, MongoDB, Multer, and Cloudinary**.
 
-Currently, two official plugins are available:
+AryaCare Admin helps hospital administrators manage **Doctors, Patients, and Appointments** with full CRUD operations and a beautiful, responsive UI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔐 **Authentication**
+- Admin login using JWT
+- Secure protected routes
 
-## Expanding the ESLint configuration
+### 📊 **Dashboard**
+Live statistics:
+- **Total Patients** (Approved Appointments)
+- **Total Doctors**
+- **Total Appointments**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 👨‍⚕️ **Doctor Management**
+- Add Doctor (with Cloudinary image upload)
+- Update Doctor details
+- Delete Doctor
+- View list of all registered doctors
+
+### 🧑‍🤝‍🧑 **Patients Section**
+- Shows all patients whose appointments are approved
+
+### 📅 **Appointments Management**
+- Approve appointment
+- Mark as Pending
+- Delete appointment
+- View complete list of bookings
+
+### 🖥️ **UI / UX**
+- React + Tailwind modern UI
+- Dark sidebar with icons
+- Fully mobile responsive
+- Smooth sidebar animations
+- Lucide React Icons
+
+---
+
+## 🧩 Tech Stack
+
+### **Frontend**
+- React.js
+- Tailwind CSS
+- React Router DOM
+- Lucide Icons
+
+### **Backend**
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- Multer
+- Cloudinary
+- JWT Authentication
+
+---
+
+## 📦 Installation & Setup
+
+### 📁 Clone the Repository
+```bash
+git clone Repo-url
+cd aryacare-admin
