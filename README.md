@@ -49,6 +49,7 @@ Live statistics:
 - Tailwind CSS
 - React Router DOM
 - Lucide Icons
+- Axios 
 
 ### **Backend**
 - Node.js
