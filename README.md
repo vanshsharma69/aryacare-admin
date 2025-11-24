@@ -62,6 +62,7 @@ Live statistics:
 ---
 
 ## 📦 Installation & Setup
+- env set-up
 
 ### 📁 Clone the Repository
 ```bash
