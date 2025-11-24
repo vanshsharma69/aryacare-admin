@@ -135,7 +135,7 @@ export default function Doctors() {
           setModalOpen(true);
         }}
       >
-        ➕ Add Doctor
+        + Add Doctor
       </button>
 
       {/* Doctors Table */}
