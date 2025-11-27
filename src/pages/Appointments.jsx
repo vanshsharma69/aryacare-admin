@@ -34,7 +34,7 @@ export default function Appointments() {
   const deleteAppointment = async (id) => {
     if (!confirm("Are you sure?")) return;
 
-    await fetch(`https://aryacare-backend.onrender.com/api/appointments/${id}`, {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/appointments/${id}`, {
       method: "DELETE",
     });
     loadAppointments();
@@ -42,7 +42,7 @@ export default function Appointments() {
 
   // Update status (Approved / Pending)
   const changeStatus = async (id, status) => {
-    await fetch(`https://aryacare-backend.onrender.com/api/appointments/${id}`, {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/appointments/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),

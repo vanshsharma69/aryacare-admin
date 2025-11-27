@@ -13,8 +13,8 @@ export default function Dashboard() {
 
       // Fetch all data in parallel
       const [docRes, appRes] = await Promise.all([
-        fetch("https://aryacare-backend.onrender.com/api/docters"),
-        fetch("https://aryacare-backend.onrender.com/api/appointments")
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/docters`),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/appointments`)
       ]);
 
       const doctors = await docRes.json();

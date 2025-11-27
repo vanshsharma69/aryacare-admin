@@ -7,7 +7,7 @@ export default function Patients() {
   const loadApprovedPatients = async () => {
     setLoading(true);
     try {
-      const res = await fetch("https://aryacare-backend.onrender.com/api/appointments");
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/appointments`);
       const data = await res.json();
       console.log("Appointments API:", data);
 

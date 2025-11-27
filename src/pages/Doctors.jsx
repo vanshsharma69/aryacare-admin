@@ -21,7 +21,7 @@ export default function Doctors() {
   const loadDoctors = async () => {
     setLoading(true);
     try {
-      const res = await fetch("https://aryacare-backend.onrender.com/api/docters");
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/docters`);
       const data = await res.json();
       setDoctors(data);
     } catch (err) {
