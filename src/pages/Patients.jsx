@@ -11,13 +11,12 @@ export default function Patients() {
       const data = await res.json();
       console.log("Appointments API:", data);
 
-      // Detect correct array from API
+      // Detect correct array
       let list = [];
       if (Array.isArray(data)) list = data;
       else if (Array.isArray(data.data)) list = data.data;
       else if (Array.isArray(data.appointments)) list = data.appointments;
 
-      // Filter only approved
       const approved = list.filter((a) => a.status === "Approved");
 
       setPatients(approved);
@@ -35,43 +34,52 @@ export default function Patients() {
   if (loading) return <p className="text-xl">Loading patients...</p>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-5">Approved Patients</h1>
+    <div className="text-gray-900">
+      <h1 className="text-3xl font-bold mb-6">Approved Patients</h1>
 
-      <table className="w-full bg-white shadow rounded-xl overflow-hidden">
-        <thead>
-          <tr className="bg-gray-200 text-left">
-            <th className="p-3">Patient Name</th>
-            <th className="p-3">Doctor</th>
-            <th className="p-3">Date</th>
-            <th className="p-3">Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {patients.length === 0 && (
+      <div className="overflow-x-auto bg-white border border-gray-200 rounded-xl shadow-sm">
+        <table className="min-w-full">
+          <thead className="bg-gray-100 border-b border-gray-200">
             <tr>
-              <td colSpan="4" className="text-center p-5 text-gray-500">
-                No approved patients yet.
-              </td>
+              <th className="p-4 text-left text-sm font-semibold">Patient Name</th>
+              <th className="p-4 text-left text-sm font-semibold">Doctor</th>
+              <th className="p-4 text-left text-sm font-semibold">Date</th>
+              <th className="p-4 text-left text-sm font-semibold">Status</th>
             </tr>
-          )}
+          </thead>
 
-          {patients.map((p) => (
-            <tr key={p._id} className="border-b">
-              <td className="p-3">{p.patientName}</td>
-              <td className="p-3">{p.doctorName}</td>
-              <td className="p-3">{new Date(p.date).toLocaleString()}</td>
+          <tbody>
+            {patients.length === 0 && (
+              <tr>
+                <td
+                  colSpan="4"
+                  className="text-center p-6 text-gray-500"
+                >
+                  No approved patients yet.
+                </td>
+              </tr>
+            )}
 
-              <td className="p-3">
-                <span className="px-3 py-1 rounded text-white bg-green-600">
-                  Approved
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            {patients.map((p) => (
+              <tr
+                key={p._id}
+                className="border-b hover:bg-gray-50 transition"
+              >
+                <td className="p-4 font-medium">{p.patientName}</td>
+                <td className="p-4">{p.doctorName}</td>
+                <td className="p-4">
+                  {p.date ? new Date(p.date).toLocaleString() : "—"}
+                </td>
+                <td className="p-4">
+                  <span className="px-3 py-1 text-sm rounded-md bg-green-600 text-white">
+                    Approved
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

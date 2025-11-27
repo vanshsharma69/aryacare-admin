@@ -41,15 +41,13 @@ export default function Doctors() {
     if (files) {
       const file = files[0];
       setFormData({ ...formData, image: file });
-
-      // Show preview
       setImagePreview(URL.createObjectURL(file));
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  // Submit Form (Add / Edit)
+  // Submit Form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,42 +62,35 @@ export default function Doctors() {
 
     const method = editDoctor ? "PUT" : "POST";
 
-    try {
-      await fetch(url, { method, body: form });
+    await fetch(url, { method, body: form });
 
-      setModalOpen(false);
-      setEditDoctor(null);
-      setFormData({
-        name: "",
-        location: "",
-        gender: "",
-        specialization: "",
-        experience: "",
-        image: null,
-      });
-      setImagePreview(null);
+    setModalOpen(false);
+    setEditDoctor(null);
+    setFormData({
+      name: "",
+      location: "",
+      gender: "",
+      specialization: "",
+      experience: "",
+      image: null,
+    });
+    setImagePreview(null);
 
-      loadDoctors();
-    } catch (err) {
-      console.log("Submit error:", err);
-    }
+    loadDoctors();
   };
 
-  // Delete Doctor
+  // Delete
   const deleteDoctor = async (id) => {
     if (!confirm("Are you sure you want to delete this doctor?")) return;
 
-    try {
-      await fetch(`https://aryacare-backend.onrender.com/api/docters/${id}`, {
-        method: "DELETE",
-      });
-      loadDoctors();
-    } catch (err) {
-      console.log("Delete error:", err);
-    }
+    await fetch(`https://aryacare-backend.onrender.com/api/docters/${id}`, {
+      method: "DELETE",
+    });
+
+    loadDoctors();
   };
 
-  // Edit Doctor
+  // Edit
   const handleEdit = (doctor) => {
     setEditDoctor(doctor);
     setImagePreview(doctor.image);
@@ -115,12 +106,12 @@ export default function Doctors() {
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Doctors Management</h1>
+    <div className="text-gray-900">
+      <h1 className="text-3xl font-bold mb-6">Doctors Management</h1>
 
-      {/* Add doctor button */}
+      {/* Add Doctor Button */}
       <button
-        className="px-5 py-3 mb-5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg shadow-md hover:shadow-lg transition"
+        className="px-5 py-2 mb-6 bg-black text-white rounded-lg shadow hover:bg-gray-800 transition"
         onClick={() => {
           setEditDoctor(null);
           setImagePreview(null);
@@ -139,48 +130,45 @@ export default function Doctors() {
       </button>
 
       {/* Doctors Table */}
-      <div className="overflow-x-auto bg-white shadow-lg rounded-xl">
+      <div className="overflow-x-auto bg-white shadow rounded-xl border border-gray-200">
         <table className="min-w-full">
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-gray-100 border-b border-gray-200">
             <tr>
-              <th className="p-4">Photo</th>
-              <th className="p-4">Name</th>
-              <th className="p-4">Specialization</th>
-              <th className="p-4">Location</th>
-              <th className="p-4">Experience</th>
-              <th className="p-4">Actions</th>
+              <th className="p-4 text-left text-sm font-semibold">Photo</th>
+              <th className="p-4 text-left text-sm font-semibold">Name</th>
+              <th className="p-4 text-left text-sm font-semibold">Specialization</th>
+              <th className="p-4 text-left text-sm font-semibold">Location</th>
+              <th className="p-4 text-left text-sm font-semibold">Experience</th>
+              <th className="p-4 text-left text-sm font-semibold">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {doctors.map((doc) => (
-              <tr
-                key={doc._id}
-                className="border-b hover:bg-gray-50 transition"
-              >
+              <tr key={doc._id} className="border-b hover:bg-gray-50 transition">
                 <td className="p-4">
                   <img
                     src={doc.image}
-                    className="w-14 h-14 rounded-full shadow"
+                    className="w-14 h-14 rounded-full object-cover border border-gray-300"
                     alt="doctor"
                   />
                 </td>
-                <td className="p-4 font-semibold">{doc.name}</td>
+                <td className="p-4 font-medium">{doc.name}</td>
                 <td className="p-4">{doc.specialization}</td>
                 <td className="p-4">{doc.location}</td>
                 <td className="p-4">{doc.experience} yrs</td>
 
-                <td className="p-4 flex gap-3">
+                <td className="p-4 flex gap-2">
                   <button
                     onClick={() => handleEdit(doc)}
-                    className="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700"
+                    className="px-3 py-1 bg-gray-800 text-white rounded hover:bg-black transition"
                   >
                     Edit
                   </button>
 
                   <button
                     onClick={() => deleteDoctor(doc._id)}
-                    className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
                   >
                     Delete
                   </button>
@@ -193,68 +181,60 @@ export default function Doctors() {
 
       {/* Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center backdrop-blur-sm">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
           <div className="bg-white p-7 rounded-xl shadow-xl w-96 relative">
-            <h2 className="text-xl font-bold text-gray-700 mb-4">
+            <h2 className="text-xl font-semibold mb-5">
               {editDoctor ? "Edit Doctor" : "Add Doctor"}
             </h2>
 
-            {/* Image Preview */}
             {imagePreview && (
               <img
                 src={imagePreview}
-                className="w-24 h-24 rounded-full object-cover mx-auto mb-3 shadow"
-                alt="Preview"
+                className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border border-gray-300"
               />
             )}
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
-                type="text"
                 name="name"
                 value={formData.name}
-                placeholder="Name"
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg shadow-sm"
+                placeholder="Full Name"
+                className="w-full p-3 border rounded-lg"
                 required
               />
 
               <input
-                type="text"
                 name="location"
                 value={formData.location}
-                placeholder="Location"
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg shadow-sm"
+                placeholder="Location"
+                className="w-full p-3 border rounded-lg"
                 required
               />
 
               <input
-                type="text"
                 name="gender"
                 value={formData.gender}
-                placeholder="Gender"
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg shadow-sm"
+                placeholder="Gender"
+                className="w-full p-3 border rounded-lg"
               />
 
               <input
-                type="text"
                 name="specialization"
                 value={formData.specialization}
-                placeholder="Specialization"
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg shadow-sm"
+                placeholder="Specialization"
+                className="w-full p-3 border rounded-lg"
               />
 
               <input
-                type="text"
                 name="experience"
                 value={formData.experience}
-                placeholder="Experience (years)"
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg shadow-sm"
+                placeholder="Experience (years)"
+                className="w-full p-3 border rounded-lg"
               />
 
               <input
@@ -267,7 +247,7 @@ export default function Doctors() {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+                className="w-full py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
               >
                 {editDoctor ? "Update Doctor" : "Add Doctor"}
               </button>
@@ -275,7 +255,7 @@ export default function Doctors() {
 
             <button
               onClick={() => setModalOpen(false)}
-              className="w-full py-2 mt-3 bg-gray-300 rounded-lg hover:bg-gray-400 transition"
+              className="w-full py-3 mt-3 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
             >
               Close
             </button>
